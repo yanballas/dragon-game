@@ -10,7 +10,7 @@ export class StartScene extends Phaser.Scene {
 	}
 	
 	#createBackground() {
-		this.add.image(this.scale.width / 2, this.scale.height / 2, this.#backgroundName);
+		this.add.tileSprite(this.scale.width / 2, this.scale.height / 2, this.scale.width, this.scale.height, this.#backgroundName);
 	}
 	
 	#addText() {
