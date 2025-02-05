@@ -1,5 +1,7 @@
-import dragon from '/sprites/dragon.png';
-import dragonJSON from '/sprites/dragon.json?url';
+import hero from '/sprites/hero.png';
+import heroJSON from '/sprites/hero.json?url';
+import enemy from '/sprites/enemy.png';
+import enemyJSON from '/sprites/enemy.json?url';
 
 export class PreloadScene extends Phaser.Scene {
 	
@@ -9,7 +11,8 @@ export class PreloadScene extends Phaser.Scene {
 	
 	preload() {
 		console.log('preload preload');
-		this.load.atlas("dragon", dragon, dragonJSON)
+		this.load.atlas("hero", hero, heroJSON)
+		this.load.atlas("enemy", enemy, enemyJSON)
 	}
 	
 	create() {

@@ -1,10 +1,13 @@
 import {Hero} from "./Hero.js";
+import {Enemy} from "./Enemy.js";
+import {Enemies} from "./Enemies.js";
 
 export class GameScene extends Phaser.Scene {
 	#backgroundName;
 	#backgroundPath;
 	#background;
 	#hero;
+	#enemies;
 	#cursors;
 	
 	constructor(sceneKey, backgroundName, backgroundPath) {
@@ -24,7 +27,9 @@ export class GameScene extends Phaser.Scene {
 	create() {
 		console.log('Starting!');
 		this.#createBackground();
-		this.#hero = new Hero(this, 150, 150, 'dragon')
+		this.#hero = new Hero(this, 150, this.scale.height / 2, 'hero', 'hero-1.png', 500);
+		this.#enemies = new Enemies(this, 10);
+		this.#enemies.spawnEnemies();
 	}
 	
 	update(time, delta) {

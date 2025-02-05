@@ -1,7 +1,7 @@
 {"frames": [
 
 {
-	"filename": "dragon-1.png",
+	"filename": "hero-1.png",
 	"frame": {"x":0,"y":0,"w":939,"h":678},
 	"rotated": false,
 	"trimmed": false,
@@ -9,7 +9,7 @@
 	"sourceSize": {"w":939,"h":678}
 },
 {
-	"filename": "dragon-2.png",
+	"filename": "hero-2.png",
 	"frame": {"x":939,"y":0,"w":939,"h":678},
 	"rotated": false,
 	"trimmed": false,
@@ -17,7 +17,7 @@
 	"sourceSize": {"w":939,"h":678}
 },
 {
-	"filename": "dragon-3.png",
+	"filename": "hero-3.png",
 	"frame": {"x":0,"y":678,"w":939,"h":678},
 	"rotated": false,
 	"trimmed": false,
