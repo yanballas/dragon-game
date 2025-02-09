@@ -29,8 +29,22 @@ export class Fire extends Phaser.GameObjects.Sprite {
 		return new Fire(scene, fireConfig.x, fireConfig.y, fireConfig.texture, fireConfig.velocity, unit);
 	}
 	
+	#callbackEvents() {
+		if (this.active && this.x > this.scene.scale.width) {
+			this.#setLive(false);
+			console.log('deactivate fire');
+		}
+	}
+	
+	#setLive(status) {
+		this.body.enabled = status; // off \ on
+		this.setVisible(status); // hide \ show
+		this.setActive(status); // stop track
+	}
+	
 	#initial() {
 		this.scene.add.existing(this);
+		this.scene.events.on('update', this.#callbackEvents, this);
 	}
 	
 	move() {
@@ -38,6 +52,9 @@ export class Fire extends Phaser.GameObjects.Sprite {
 	}
 	
 	reset() {
-
+		this.x = this.unit.x + this.unit.x / 2;
+		this.y = this.unit.y;
+		this.#setLive(true);
+		console.log('reset fire');
 	}
 }
