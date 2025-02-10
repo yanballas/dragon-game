@@ -1,17 +1,19 @@
-export class Fire extends Phaser.GameObjects.Sprite {
+import {Unit} from "./Unit";
+
+export class Fire extends Unit {
 	scene;
 	unit;
-	#velocity;
-	#fireConfig;
+	velocity;
+	fireConfig;
 	
-	constructor(scene, x, y, texture, velocity, unit) {
+	constructor(data) {
 		console.log('create fire');
-		super(scene, x, y, texture);
-		this.scene = scene;
-		this.#velocity = velocity;
-		this.unit = unit;
-		this.#fireConfig = Fire.generateAttr(this.scene, this.unit);
-		this.#initial();
+		super(data);
+		this.scene = data.scene;
+		this.unit = data.unit;
+		this.velocity = data.velocity;
+		this.fireConfig = Fire.generateAttr(this.scene, this.unit);
+		super.initial();
 	}
 	
 	static generateAttr(scene, unit) {
@@ -24,37 +26,32 @@ export class Fire extends Phaser.GameObjects.Sprite {
 	}
 	
 	static generate(scene, unit) {
-		console.log('generate fire')
 		const fireConfig = this.generateAttr(scene, unit);
-		return new Fire(scene, fireConfig.x, fireConfig.y, fireConfig.texture, fireConfig.velocity, unit);
+		return new Fire({
+			scene: scene,
+			x: fireConfig.x,
+			y: fireConfig.y,
+			texture: fireConfig.texture,
+			velocity: fireConfig.velocity,
+			unit: unit
+		});
 	}
 	
-	#callbackEvents() {
+	callbackEvents() {
 		if (this.active && this.x > this.scene.scale.width) {
-			this.#setLive(false);
+			this.setAlive(false);
 			console.log('deactivate fire');
 		}
 	}
 	
-	#setLive(status) {
-		this.body.enabled = status; // off \ on
-		this.setVisible(status); // hide \ show
-		this.setActive(status); // stop track
-	}
-	
-	#initial() {
-		this.scene.add.existing(this);
-		this.scene.events.on('update', this.#callbackEvents, this);
-	}
-	
 	move() {
-		this.body.setVelocityX(this.#fireConfig.velocity);
+		this.body.setVelocityX(this.fireConfig.velocity);
 	}
 	
 	reset() {
 		this.x = this.unit.x + this.unit.x / 2;
 		this.y = this.unit.y;
-		this.#setLive(true);
+		this.setAlive(true);
 		console.log('reset fire');
 	}
 }

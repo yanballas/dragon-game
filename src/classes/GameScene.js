@@ -27,7 +27,7 @@ export class GameScene extends Phaser.Scene {
 	create() {
 		console.log('Starting!');
 		this.#createBackground();
-		this.#hero = new Hero(this, 150, this.scale.height / 2, 'hero', 'hero-1.png', 500);
+		this.#hero = new Hero({scene: this, x: 150, y: this.scale.height / 2, texture: 'hero', frame: 'hero-1.png', velocity: 500});
 		this.#enemies = new Enemies(this, 10);
 		this.#enemies.spawnEnemies();
 	}
