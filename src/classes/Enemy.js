@@ -2,14 +2,14 @@ import {Unit} from "./Unit.js";
 
 export class Enemy extends Unit {
 	scene;
-	velocity;
-	enemyConfig;
+	#velocity;
+	#enemyConfig;
 	
 	constructor(data) {
 		super(data);
 		this.scene = data.scene;
-		this.velocity = data.velocity;
-		this.enemyConfig = Enemy.generateAttr(this.scene);
+		this.#velocity = data.velocity;
+		this.#enemyConfig = Enemy.generateAttr(this.scene);
 	}
 	
 	static generateAttr(scene) {
@@ -45,15 +45,15 @@ export class Enemy extends Unit {
 	}
 	
 	reset() {
-		this.x = this.enemyConfig.x;
-		this.y = this.enemyConfig.y;
-		this.setFrame(this.enemyConfig.frame);
+		this.x = this.#enemyConfig.x;
+		this.y = this.#enemyConfig.y;
+		this.setFrame(this.#enemyConfig.frame);
 		this.setAlive(true);
 		console.log('reset enemy');
 	}
 	
 	move() {
 		this.initial();
-		this.body.setVelocityX(this.velocity);
+		this.body.setVelocityX(this.#velocity);
 	}
 }

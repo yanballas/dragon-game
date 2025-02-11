@@ -2,17 +2,17 @@ import {Unit} from "./Unit";
 
 export class Fire extends Unit {
 	scene;
-	unit;
-	velocity;
-	fireConfig;
+	#unit;
+	#velocity;
+	#fireConfig;
 	
 	constructor(data) {
 		console.log('create fire');
 		super(data);
 		this.scene = data.scene;
-		this.unit = data.unit;
-		this.velocity = data.velocity;
-		this.fireConfig = Fire.generateAttr(this.scene, this.unit);
+		this.#unit = data.unit;
+		this.#velocity = data.velocity;
+		this.#fireConfig = Fire.generateAttr(this.scene, this.#unit);
 		super.initial();
 	}
 	
@@ -45,12 +45,12 @@ export class Fire extends Unit {
 	}
 	
 	move() {
-		this.body.setVelocityX(this.fireConfig.velocity);
+		this.body.setVelocityX(this.#fireConfig.velocity);
 	}
 	
 	reset() {
-		this.x = this.unit.x + this.unit.x / 2;
-		this.y = this.unit.y;
+		this.x = this.#unit.x + this.#unit.x / 2;
+		this.y = this.#unit.y;
 		this.setAlive(true);
 		console.log('reset fire');
 	}

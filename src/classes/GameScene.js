@@ -1,5 +1,4 @@
 import {Hero} from "./Hero.js";
-import {Enemy} from "./Enemy.js";
 import {Enemies} from "./Enemies.js";
 
 export class GameScene extends Phaser.Scene {

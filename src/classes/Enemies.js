@@ -3,27 +3,27 @@ import {Enemy} from "./Enemy.js";
 export class Enemies extends Phaser.Physics.Arcade.Group {
 	
 	scene;
-	maxEnemiesCount;
-	createdEnemiesCount;
-	timer;
+	#maxEnemiesCount;
+	#createdEnemiesCount;
+	#timer;
 	
 	constructor(scene, maxEnemiesCount) {
 		super();
 		this.scene = scene;
-		this.maxEnemiesCount = maxEnemiesCount;
-		this.createdEnemiesCount = 0;
-		this.timer = this.scene.time.addEvent({
+		this.#maxEnemiesCount = maxEnemiesCount;
+		this.#createdEnemiesCount = 0;
+		this.#timer = this.scene.time.addEvent({
 			delay: 1000,
 			callback: this.#callbackEventsEnemies,
 			callbackScope: this,
 			loop: true
 		});
-		this.timer.paused = true;
+		this.#timer.paused = true;
 	}
 	
 	#callbackEventsEnemies() {
-		if (this.createdEnemiesCount < this.maxEnemiesCount) this.#createEntity()
-		else this.timer.paused = true;
+		if (this.#createdEnemiesCount < this.#maxEnemiesCount) this.#createEntity()
+		else this.#timer.paused = true;
 	}
 	
 	#createEntity() {
@@ -37,11 +37,11 @@ export class Enemies extends Phaser.Physics.Arcade.Group {
 			enemy.reset();
 		}
 		enemy.move();
-		this.createdEnemiesCount++;
+		this.#createdEnemiesCount++;
 	}
 	
 	spawnEnemies() {
 		console.log('timer active');
-		this.timer.paused = false;
+		this.#timer.paused = false;
 	}
 }
