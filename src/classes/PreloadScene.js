@@ -3,6 +3,7 @@ import heroJSON from '/sprites/hero.json?url';
 import enemy from '/sprites/enemy.png';
 import enemyJSON from '/sprites/enemy.json?url';
 import fire from '/sprites/fire.png';
+import bullet from '/sprites/bullet.png';
 
 export class PreloadScene extends Phaser.Scene {
 	
@@ -15,6 +16,7 @@ export class PreloadScene extends Phaser.Scene {
 		this.load.atlas("hero", hero, heroJSON)
 		this.load.atlas("enemy", enemy, enemyJSON)
 		this.load.image("fire-dragon", fire)
+		this.load.image("bullet-enemy", bullet)
 	}
 	
 	create() {

@@ -25,7 +25,7 @@ export class Enemy extends Unit {
 		const currentEnemyConfig = {
 			...enemyConfig,
 			texture: 'enemy',
-			velocity: -300,
+			velocity: -250,
 		};
 		return new Enemy({
 			scene: scene,
@@ -33,13 +33,22 @@ export class Enemy extends Unit {
 			y: currentEnemyConfig.y,
 			texture: currentEnemyConfig.texture,
 			frame: currentEnemyConfig.frame,
-			velocity: currentEnemyConfig.velocity
+			velocity: currentEnemyConfig.velocity,
+			weapon: {
+				delay: 1000,
+				texture: 'bullet-enemy',
+				velocity: -500,
+			},
+			origin: {
+				x: 0,
+				y: 0.5,
+			}
 		});
 	}
 	
 	callbackEvents() {
 		if (this.active && this.x < -this.width) {
-			this.setAlive(false);
+			Unit.setAlive(this, false)
 			console.log('deactivate enemy');
 		}
 	}
@@ -48,7 +57,7 @@ export class Enemy extends Unit {
 		this.x = this.#enemyConfig.x;
 		this.y = this.#enemyConfig.y;
 		this.setFrame(this.#enemyConfig.frame);
-		this.setAlive(true);
+		Unit.setAlive(this, true)
 		console.log('reset enemy');
 	}
 	

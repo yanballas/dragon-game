@@ -1,6 +1,6 @@
 import {Unit} from "./Unit";
 
-export class Fire extends Unit {
+export class Fire extends Phaser.GameObjects.Sprite {
 	scene;
 	#unit;
 	#velocity;
@@ -8,20 +8,20 @@ export class Fire extends Unit {
 	
 	constructor(data) {
 		console.log('create fire');
-		super(data);
+		super(data.scene, data.x, data.y, data.texture);
 		this.scene = data.scene;
 		this.#unit = data.unit;
 		this.#velocity = data.velocity;
 		this.#fireConfig = Fire.generateAttr(this.scene, this.#unit);
-		super.initial();
+		this.initial();
 	}
 	
 	static generateAttr(scene, unit) {
 		return {
-			x: unit.x + unit.x / 2,
+			x: unit.x,
 			y: unit.y,
-			texture: 'fire-dragon',
-			velocity: 300,
+			texture: unit.weapon.texture,
+			velocity: unit.weapon.velocity,
 		}
 	}
 	
@@ -37,9 +37,16 @@ export class Fire extends Unit {
 		});
 	}
 	
+	initial() {
+		this.scene.add.existing(this);
+		this.scene.physics.add.existing(this);
+		this.body.enable = true;
+		this.scene.events.on('update', this.callbackEvents, this);
+	}
+	
 	callbackEvents() {
 		if (this.active && this.x > this.scene.scale.width) {
-			this.setAlive(false);
+			Unit.setAlive(this, false)
 			console.log('deactivate fire');
 		}
 	}
@@ -49,9 +56,9 @@ export class Fire extends Unit {
 	}
 	
 	reset() {
-		this.x = this.#unit.x + this.#unit.x / 2;
+		this.x = this.#unit.x;
 		this.y = this.#unit.y;
-		this.setAlive(true);
+		Unit.setAlive(this, true)
 		console.log('reset fire');
 	}
 }

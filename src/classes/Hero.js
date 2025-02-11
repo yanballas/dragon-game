@@ -1,13 +1,11 @@
 import {Unit} from "./Unit.js";
-import {Fires} from "./Fires";
 
 export class Hero extends Unit {
 	scene;
 	#velocity;
 	#fireCount;
 	#maxFireCount = 10;
-	timer;
-	fires;
+	#timer;
 	
 	constructor(data) {
 		super(data);
@@ -15,7 +13,7 @@ export class Hero extends Unit {
 		this.#velocity = data.velocity;
 		this.setScale(0.10);
 		this.#fireCount = 0;
-		this.timer = this.scene.time.addEvent({
+		this.#timer = this.scene.time.addEvent({
 			delay: 1000,
 			callback: this.callbackEventsFire,
 			callbackScope: this,
@@ -25,14 +23,12 @@ export class Hero extends Unit {
 	}
 	
 	callbackEventsFire() {
-		if (this.#fireCount < this.#maxFireCount) this.fires.createFire(this)
-		else this.timer.paused = true;
+		if (this.#fireCount < this.#maxFireCount) this.updateFires();
+		else this.#timer.paused = true;
 	}
 	
 	initial() {
 		super.initial();
-		this.fires = new Fires(this.scene);
-		this.fires.createFire(this);
 	}
 	
 	move() {
